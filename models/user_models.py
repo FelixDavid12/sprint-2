@@ -2,7 +2,6 @@ from pydantic import BaseModel
 
 
 class UserIn(BaseModel):
-    id_user: int
     name: str
     surname: str
     national_id: int
@@ -11,7 +10,6 @@ class UserIn(BaseModel):
 
 
 class UserOut(BaseModel):
-    id_user: int
     name: str
     surname: str
     national_id: int
