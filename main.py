@@ -20,6 +20,7 @@ async def list_user(username: str):
 @api.post("/user/create/")
 async def add_user(user_in: UserIn):
     user_in_db = get_user(user_in.name)
+    user_in = UserInDB(**user_in.dict())
     if user_in_db is None:
         create_user(user_in)
     else:
