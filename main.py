@@ -7,12 +7,24 @@ from fastapi import HTTPException
 
 api = FastAPI()
 
+from fastapi.middleware.cors import CORSMiddleware
+
+origins = [
+"http://localhost.tiangolo.com", "https://localhost.tiangolo.com",
+"http://localhost", "http://localhost:8081",
+"https://sprint-3-12.herokuapp.com"
+]
+api.add_middleware(
+CORSMiddleware, allow_origins=origins,
+allow_credentials=True, allow_methods=["*"], allow_headers=["*"],
+)
+
 
 @api.get("/user/{username}")
 async def list_user(username: str):
     user_in_db = get_user(username)
     if user_in_db is None:
-        raise HTTPException(status_code=404, detail="El usuario no existe")
+        return "El usuario " + username + " no existe"
     user_out = UserOut(**user_in_db.dict())
     return user_out
 
@@ -24,5 +36,6 @@ async def add_user(user_in: UserIn):
     if user_in_db is None:
         create_user(user_in)
     else:
-        raise HTTPException(status_code=404, detail="El usuario ya existe")
+        return "El usuario " + user_in.name + " ya existe"
     return "Correctamente añadido el usuario " + user_in.name
+
