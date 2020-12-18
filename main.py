@@ -1,23 +1,22 @@
 from db.user_db import UserInDB
-from db.user_db import create_user, get_user
+from db.user_db import create_user, get_user, get_all_users
 from models.user_models import UserIn, UserOut
 
 from fastapi import FastAPI
 from fastapi import HTTPException
 
-api = FastAPI()
-
 from fastapi.middleware.cors import CORSMiddleware
 
+api = FastAPI()
+
 origins = [
-"http://localhost.tiangolo.com", "https://localhost.tiangolo.com",
-"http://localhost", "http://localhost:8081", "http://localhost:8080",
-"https://sprint-3-12.herokuapp.com"
+    "http://localhost.tiangolo.com", "https://localhost.tiangolo.com",
+    "http://localhost", "http://localhost:8081", "http://localhost:8080",
+    "https://sprint-3-12.herokuapp.com"
 ]
-api.add_middleware(
-CORSMiddleware, allow_origins=origins,
-allow_credentials=True, allow_methods=["*"], allow_headers=["*"],
-)
+api.add_middleware(CORSMiddleware, allow_origins=origins,
+                   allow_credentials=True, allow_methods=["*"],
+                   allow_headers=["*"])
 
 
 @api.get("/user/{username}")
@@ -39,3 +38,8 @@ async def add_user(user_in: UserIn):
         return "El usuario " + user_in.name + " ya existe"
     return "Correctamente añadido el usuario " + user_in.name
 
+
+@api.get("/users/")
+async def get_users():
+    users = get_all_users()
+    return users

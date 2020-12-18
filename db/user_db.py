@@ -32,3 +32,6 @@ def create_user(user: UserInDB):
     user.id_user = generator_id_user["id_user"]
     database_users[user.name] = user
 
+
+def get_all_users():
+    return database_users
