@@ -1,2 +1,2 @@
-# sprint-2
-Este es un proyecto de prueba de REST-API utilizando Fast-Api y Python
+# Sprint 2, Misión TIC 2022
+Este es un proyecto acádemico de REST-API; utilizando Fast-Api y Python. 
